@@ -1,0 +1,139 @@
+*{
+    font-family: "Atkinson Hyperlegible Next";
+}
+
+body {
+    /*background: rgb(180,70,58);
+    background: linear-gradient(90deg, rgba(180,70,58,1) 0%, rgba(69,81,252,1) 100%);*/
+    background: rgb(220,152,223);
+    background: radial-gradient(circle, rgba(220,152,223,1) 0%, rgba(0,117,255,1) 100%);
+}
+.container {
+    display: flex;
+    align-items: center; /* Align logo and text vertically */
+    gap: 15px; /* Space between logo and text */
+    margin-left: 5%; /* Adjust position */
+}
+input {
+    color: black !important;
+}
+input::placeholder {
+    color: black;  /* Change placeholder color */
+    opacity: 1;  /* Ensure full visibility (some browsers reduce opacity) */
+    font-style: italic; /* Optional styling */
+}
+.diamond {
+    margin: 100px;
+    width: 150px;
+    height: 150px;
+    background: rgba( 255, 255, 255, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    rotate: 45deg;
+    backdrop-filter: blur( 20px );
+    -webkit-backdrop-filter: blur( 20px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );/* Blurs background for a glass effect */
+}
+.diamond img {
+   width: 140px; /* Adjust to fit */
+    height: 140px;
+    object-fit: cover;
+    transform: rotate(-45deg); /* Reverse rotation */
+}
+#container_h1 {
+    text-align: center;
+    margin-left: 15%;
+    color: white;
+    font-family: "Atkinson Hyperlegible Next", cursive;
+    font-size: 50px;
+}
+.login-container {
+    color : white ;
+    margin-left: 35%;
+    position: relative;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 40px;
+    border-radius: 15px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.profile-icon {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.profile-icon img {
+    width: 50px;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 25px;
+
+}
+
+.input-container img {
+    width: 25px;
+    margin-right: 10px;
+}
+
+.input-container input {
+    padding: 10px;
+    flex: 1;
+    border: none;
+    background: none;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-top: 10px;
+    color: white;
+}
+
+.remember-forgot input {
+    margin-right: 5px;
+}
+/* Make the form adapt to screen size */
+.body {
+    max-width: 90%;  /* Avoid fixed width */
+    width: 400px;     /* Default size */
+    padding: 20px;
+}
+
+/* Adjust for mobile screens */
+@media (max-width: 600px) {
+    .body {
+        width: 95%;  /* Make it more compact */
+    }
+    .input-box {
+        flex-direction: column;  /* Stack input and icon */
+        align-items: center;
+    }
+}
+.submit-btn {
+    margin: 10px;
+    padding-left: 100px;
+    padding-right: 100px;
+    border-radius: 15px;
+    background: white;
+}
