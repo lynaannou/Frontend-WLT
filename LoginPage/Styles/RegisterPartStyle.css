@@ -1,0 +1,40 @@
+.Welcoming-then-register{
+    display: inline-block;
+    width: 400px;
+    height:550px;
+    border-radius: 30px;
+    background-color: #55a5d4;
+    vertical-align: top;
+    width-min: 170px  ;
+}
+.hello{
+    color: white;
+    margin-left: 52px;
+    margin-top: 200px;
+    display: block;
+}
+.dont{
+    margin-top: 10px;
+    margin-left: 80px;
+    color: white;
+    display: block;
+}
+.Registration-button{
+    margin-top: 20px;
+    margin-left: 100px;
+    font-size: 16px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 35px;
+    padding-right: 35px;
+    border-radius: 15px;
+    border: 2px solid white;
+    color:white;
+    background-color: #55a5d4;
+    cursor: pointer;
+    transition: background-color 0.1s;
+}
+.Registration-button:active{
+    color:#55a5d4;
+    background-color: white;
+}

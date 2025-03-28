@@ -1,0 +1,53 @@
+
+.Login-Layout{
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    width: 450px;
+    vertical-align: top;
+    margin-left: 60px;
+
+}
+
+.login{
+    font-weight: 600;
+    font-style: normal;
+    display: block;
+    margin-top: 80px;
+    margin-left: 40px;
+}
+.Username,.Password{
+    display: flex;
+    flex-direction: row;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    background-color: #b6b6b6;
+    color: rgb(28, 23, 23);
+    border-radius: 15px;
+    border:none;
+    width: 250px;
+    flex: 1;
+}
+.LoginButton{
+    display: flex;
+    flex-direction: row;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 100px;
+    background-color: #b6b6b6;
+    color: rgb(28, 23, 23);
+    margin-top:20px;
+    width: 250px;
+    border-radius: 15px;
+    border:none;
+    background-color: #55a5d4;
+    color: white;
+    cursor: pointer;
+    transition: 0.1s;
+}
+.LoginButton:active{
+    opacity: 0.4;
+}
+
+
