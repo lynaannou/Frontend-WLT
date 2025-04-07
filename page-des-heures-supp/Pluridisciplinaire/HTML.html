@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WLT USTHB: Home</title>
+    <link rel="icon" href="Logo,_USTHB.png">
+    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="Buttons.css">
+</head>
+<body>
+
+<div id="preload" class="preload">
+    <div class="diamond">
+        <img src="usthb_transparent.png">
+    </div>
+    <h1>WLT USTHB</h1>
+</div>
+
+<div id="container" class="container hidden">
+
+    <div class="navbar">
+        <div id="already" class="welcome hidden padding">
+            <h1>Welcome Back!</h1>
+            <img class="logo_img" src="Logo,_USTHB.png">
+                <div>
+                    <h5>Already have an account?</h5>
+                    <button id="aleady_login" class="register_button"><h2>Login</h2></button>
+                </div>
+        </div>
+        <div id="welcome" class="welcome">
+            <h1>Hello, Welcome!</h1>
+            <img class="logo_img" src="Logo,_USTHB.png">
+            <div>
+                <h5>Don't have an account?</h5>
+                <button id="register" class="register_button"><h2>Register</h2></button>
+            </div>
+        </div>
+
+        <div id="login" class="login">
+            <h1>Login</h1>
+            <form type="submit" action="Loged%20in.html">
+                <div class="username">
+                    <img class="mail_img" src="mail-512.png">
+                    <input id="username_fill" type="email" placeholder="Username" required>
+                </div>
+                <div class="password">
+                    <img id="password" class="key_img" src="key-4-512.png">
+                    <input id="password_fill" type="password" placeholder="Password" required>
+                    <br>
+                </div>
+                   <button onclick="
+                    const username = document.getElementById('username_fill').value;
+                    const email = document.getElementById('password_fill').value;
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('email', email);
+                    window.location.href = 'Loged%20in.html';
+                    "
+                           type="submit" id="login_button" class="login_button">
+                        <h3>Login</h3>
+                   </button>
+            </form>
+        </div>
+        <div id="registerr" class="register hidden">
+            <h1>Register</h1>
+            <form action="#">
+                <div class="username">
+                    <img class="mail_img" src="mail-512.png">
+                    <input type="email" placeholder="Username" required>
+                </div>
+                <div class="username">
+                    <img class="mail_img" src="contacts-512.png">
+                    <input  type="text" placeholder="Name" required>
+                </div>
+                <div class="username">
+                    <img class="mail_img" src="contacts-512.png">
+                    <input type="text" placeholder="Family Name" required>
+                </div>
+                <div class="password">
+                    <img class="key_img" src="key-4-512.png">
+                    <input class="password" type="password" placeholder="Password" required>
+                </div>
+                <button id="register_button" class="login_button"><h3>Register</h3></button>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+.register_button{
+    color: white;
+    border: 3px white solid;
+    margin: 10px;
+    border-radius: 25px;
+    padding: 11px 40px 11px 40px;
+    background: #5FA9DD;
+
+}
+.login_button{
+    margin-top: 20px;
+    color: #5FA9DD;
+    border: 2px white solid;
+    border-radius: 25px;
+    padding: 3px 40px 3px 40px;
+    background: white;
+    text-decoration: none;
+}
+.register_button:hover{
+    transition: all 0.3s ease-in-out;
+    color: #5FA9DD;
+    background: white;
+    cursor: pointer;
+    border: 1px solid #5FA9DD;
+}
+.login_button:hover{
+    cursor: pointer;
+}

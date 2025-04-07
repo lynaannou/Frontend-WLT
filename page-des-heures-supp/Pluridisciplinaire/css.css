@@ -1,0 +1,138 @@
+*{
+    font-family: Atkinson Hyperlegible Next;
+}
+body{
+    background-image: url('blue-mountain-landscape-during-nighttime-lejp0wvsxdzhm78t.jpg');
+}
+.preload{
+    display: flex;
+    height: 95vh;
+    width: 95vw;
+    justify-content: center;
+    place-items: center;
+}
+.diamond {
+    margin: 100px;
+    width: 150px;
+    height: 150px;
+    backdrop-filter: blur(100px);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    rotate: 45deg;
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );/* Blurs background for a glass effect */
+}
+.diamond img {
+    width: 140px; /* Adjust to fit */
+    height: 140px;
+    object-fit: cover;
+    transform: rotate(-45deg); /* Reverse rotation */
+}
+.preload h1{
+    border-radius: 25px;
+    padding: 30px;
+    backdrop-filter: blur(20px);
+    color: white;
+    font-size: 50px;
+}
+.container{
+    transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
+    display: flex;
+    height: 95vh;
+    width: 95vw;
+    justify-content: center;
+    place-items: center;
+}
+
+.navbar{
+    display: flex;
+    align-items: center;
+    border-radius: 25px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    backdrop-filter: blur(20px);
+}
+.welcome{
+    color: white;
+    padding: 105px ;
+    border-radius: 25px;
+    background: #5FA9DD;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.5s ease-in-out;
+}
+.login {
+    color: white;
+    padding: 100px;
+    border-radius: 25px;
+    align-items: center;
+    justify-content: center;
+}
+
+.username img {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    margin-right: 10px;
+
+}
+.password img{
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+.username{
+    border-radius: 25px;
+}
+.username input{
+    color: white;
+    border-radius: 15px;
+    padding: 11px 40px 11px 10px;
+    margin: 10px;
+    border: 2px #5FA9DD solid;
+    outline: none;
+    background: transparent;
+}
+.username input::placeholder{
+    color: white;
+}
+.username input:focus{
+    border: 3px solid #5FA9DD;
+}
+.password input{
+    color: white;
+    background: transparent;
+    border-radius: 15px;
+    padding: 11px 40px 11px 10px;
+    border: 2px #5FA9DD solid;
+    outline: none;
+}
+.password input::placeholder{
+    color: white;
+}
+.password input:focus{
+    border: 3px #5FA9DD solid;
+}
+.password {
+    margin: 10px;
+}
+.register{
+    margin: 0 auto;
+    color: white;
+    padding: 100px;
+    border-radius: 25px;
+    place-items: center;
+}
+.hidden{
+    display: none;
+}
+.move-right {
+    transform: translateX(105%);
+}
+.move-left {
+    transform: translateX(-100%);
+}
+.logo_img{
+    width: 140px; /* Adjust to fit */
+    height: 140px;
+    object-fit: cover;}
