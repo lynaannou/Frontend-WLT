@@ -1,0 +1,219 @@
+body{
+    margin: 0;
+    background: linear-gradient(to right, #21195a, #6c4785);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+}
+.Container{
+    padding: 30px;
+    display: flex;
+    flex-direction: row;
+    background-color: #2d2b4a;
+    height: 500px;
+    width: 900px;
+    border-radius: 20px;
+    column-gap: 30px;
+
+}
+.Questions{
+    font-family: Poppins, serif;
+    font-weight: 650;
+    color: #211e37;
+
+
+}
+.Question-1,.Question-2,.Question-3,.Question-4{
+    background-color: white;
+
+}
+.Question-1{
+    flex-basis: 60%; /* or flex-basis: 60%; */
+    min-width: 250px;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+}
+.Question1-text{
+    padding: 10px;
+    flex-basis: 50%;
+    min-width: 300px;
+    background-color: #a9a8d5;
+    margin-right: -5px;
+    border: 4px solid; /* Required to apply border-image */
+    border-image: repeating-linear-gradient(
+            to right,
+            #66649a 0 10px,
+            transparent 10px 20px
+    ) 1;
+
+    border-image-repeat: round;
+    border-radius: 10px;
+    border-left: none;
+
+}
+.Question1-checkbox{
+    flex: 1;
+    padding: 30px;
+    background-color: #83809e;
+    border-radius: 10px;
+    margin-left: -7px;
+}
+.checkbox1,
+.checkbox2 {
+    margin-bottom: 10px; /* space between checkboxes */
+    font-size: 18px;     /* make the label text bigger */
+    display: flex;
+    align-items: center;
+    gap: 10px;           /* space between the radio button and the label */
+}
+.Question1-checkbox input[type="radio"] {
+    transform: scale(1.5); /* make the radio buttons bigger */
+    cursor: pointer;
+}
+.Question-3{
+    flex-basis: 40%;
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+
+}
+.Question3-text{
+    padding: 10px;
+    flex-basis: 60%;
+    background-color: #a9a8d5;
+    border: 4px solid; /* Required to apply border-image */
+    border-image: repeating-linear-gradient(
+            to right,
+            #66649a 0 10px,
+            transparent 10px 20px
+    ) 1;
+
+    border-image-repeat: round;
+    border-left: none;
+    border-radius: 10px;
+
+
+}
+.Question3-checkbox{
+    flex: 1;
+    background-color: #83809e;
+    border-radius: 10px;
+    padding: 15px;
+    margin-left: -10px;
+    align-items: center;
+    align-content: center;
+    display: flex;
+
+}
+.Q3-heures-supp{
+    height: 40px;
+    width: 60px;
+    min-width: 30px;
+    border: 3.5px #2d2b4a solid;
+    border-radius: 10px;
+    margin-left: 10px ;
+
+}
+.Question-TOP{
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+
+}
+.Question-BOTTOM{
+    margin-top: 40px;
+    display: flex;
+    flex-direction:row;
+    gap: 40px;
+
+
+}
+.Question-2{
+    height: 200px;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+
+}
+.Question2-text{
+    flex-basis: 50%;
+    padding: 15px;
+    background-color: #a9a8d5;
+    border: 4px solid; /* Required to apply border-image */
+    border-image: repeating-linear-gradient(
+            to right,
+            #66649a 0 10px,
+            transparent 10px 20px
+    ) 1;
+
+    border-image-repeat: round;
+    border-left: none;
+    border-radius: 10px;
+}
+.Question2-checkbox{
+    flex-basis: 50%;
+    background-color: #83809e;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: -10px;
+    align-items: center;
+    align-content: center;
+    display: flex;
+
+}
+.Q2-nbr-pfe{
+    height: 50px;
+    width: 80px;
+    min-width: 30px;
+    border: 3.5px #2d2b4a solid;
+    border-radius: 10px;
+    margin-left: 50px;
+
+}
+.Question-4{
+    height: 200px;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+
+}
+.Question4-text{
+    flex-basis: 50%;
+    padding: 15px;
+    background-color: #a9a8d5;
+    border: 4px solid; /* Required to apply border-image */
+    border-image: repeating-linear-gradient(
+            to right,
+            #66649a 0 10px,
+            transparent 10px 20px
+    ) 1;
+
+    border-image-repeat: round;
+    border-left: none;
+    border-radius: 10px;
+}
+.Question4-checkbox{
+    flex-basis: 50%;
+    background-color: #83809e;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: -10px;
+    align-items: center;
+    align-content: center;
+    display: flex;
+}
+.Q4-nbr-pfe{
+    height: 50px;
+    width: 80px;
+    min-width: 30px;
+    border: 3.5px #2d2b4a solid;
+    border-radius: 10px;
+    margin-left: 50px;
+}
