@@ -1,0 +1,151 @@
+*{
+    font-family: Atkinson Hyperlegible Next;
+}
+body{
+    background-image : url(blue-mountain-landscape-during-nighttime-lejp0wvsxdzhm78t.jpg);
+    background-attachment: fixed;
+}
+.user_img{
+    margin: 0 ;
+    width:100px;
+    height:100px;
+}
+.user_info{
+    color: white;
+    margin-left: 25px
+}
+.user{
+    display: flex;
+    margin: 25px;
+    backdrop-filter: blur(20px);
+    width: fit-content;
+    padding: 10px;
+    border-radius: 10px;
+}
+.choix{
+    color: white;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0;
+    backdrop-filter: blur(20px);
+}
+.head{
+    padding: 10px;
+    border-radius: 8px;
+    color: white;
+    /*border: 2px solid #a764d9;*/
+    border: 2px solid #5FA9DD;
+}
+table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+}
+
+select {
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    background-color: #666;
+    color: white;
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #a764d9;
+    cursor: pointer;
+}
+
+.required {
+    color: red;
+}
+
+.warning {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+.obl{
+    text-align: left;
+    margin: 50px 20px 50px 100px;
+}
+.navigate{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 99%;
+    padding: 10px;
+}
+.navigate_button{
+    border : 2px solid #5FA9DD;
+    border-radius: 10px;
+    background-color: #5FA9DD;
+    color: white;
+    cursor: pointer;
+}
+.navigate_button:hover{
+    transition: all 0.3s ease-in-out;
+    border: 2px solid white;
+}
+.hidden{
+    display: none;
+}
+.bonus{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+}
+.question{
+    display: flex;
+    border: 2px solid #5FA9DD;
+    border-radius: 15px;
+    width: 450px;
+    height: 200px;
+    margin: 10px;
+    align-items: center;
+}
+.question input {
+    width: 30px;
+    height: 30px;
+}
+.question input:focus{
+    outline: none;
+    border: 2px solid #5FA9DD;
+}
+.divider {
+    width: 2px; /* Line width */
+    background-color: white; /* Line color */
+    height: 100%; /* Full height of the div */
+}
+.content_left {
+    width : 200px;
+    margin-left: 40px ;
+    padding: 10px;
+    font-weight: bold;
+    color: white;
+
+}
+.content_right {
+    flex: 1; /* Takes the other half of the space */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers items horizontally */
+    justify-content: center; /* Centers items vertically */
+    padding: 10px;
+    gap: 10px;
+}
+.left{
+    padding: 10px;
+}
+

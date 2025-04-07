@@ -1,0 +1,37 @@
+<div id="choix_3" class="choix hidden">
+  <div class="left">
+    <div class="question">
+      <div class="content_left">
+        <h3>Voulez Vous assurez des enseignements en heures supplémentaires pour le S1</h3>
+      </div>
+      <div class="devider"></div>
+      <div class="input content_right">
+        <input type="checkbox">Oui</input><input type="checkbox">Non</input>
+      </div>
+    </div>
+    <div class="question">
+      <div class="content_left">
+        <h3>Si Oui présisez le NBR d'heures sup</h3>
+      </div>
+      <div class="devider"></div>
+      <div class="input content_right"><input></div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="question">
+      <div class="content_left">
+        <h3>NBR de PFE licence prévus pour cette année</h3>
+      </div>
+      <div class="devider"></div>
+      <div class="input content_right"><input></div>
+    </div>
+    <div class="question">
+      <div class="content_left">
+        <h3>Nbr de PFE licence prévus pour cette année</h3>
+      </div>
+      <div class="devider"></div>
+      <div class="input content_right"><input></div>
+    </div>
+
+  </div>
+</div>
