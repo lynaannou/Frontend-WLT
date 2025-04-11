@@ -1,0 +1,51 @@
+*{
+    font-family: Atkinson Hyperlegible Next;
+}
+.user_img{
+    margin: 0 ;
+    width:100px;
+    height:100px;
+}
+.user_info{
+    color: white;
+    margin-left: 25px
+}
+.user{
+    display: flex;
+    margin: 25px;
+    backdrop-filter: blur(20px);
+    width: fit-content;
+    padding: 10px;
+    border-radius: 10px;
+
+}
+.logo{
+    width: 200px;
+    height: 200px;
+    margin: 50px 50px 0 50px;
+    padding: 50px;
+    border-radius: 10px;
+}
+.logo:hover{
+    cursor: pointer;
+    transition: 1s;
+    background-color:  #5FA9DD;
+}
+.centre{
+    color: white;
+    margin: auto;
+    display: flex;
+    width: fit-content;
+    backdrop-filter: blur(40px);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 15px;
+    /* haylik wech zedt 3liha*/
+    background-color: #2d2b4a;
+}
+h5{
+    color: white;
+    text-align: center;
+    font-size: 25px;
+}
