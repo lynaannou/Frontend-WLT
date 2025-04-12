@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>WLT USTHB: Statistiques</title>
+  <link rel="stylesheet" href="Styles/Statistiques.css" />
+  <link rel="icon" href="Assets/Logo,_USTHB.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 Statistiques Générales</h1>
+
+    <div class="stats-box" id="statsSection">
+      <p>Total de professeurs inscrits: <span id="profCount">--</span></p>
+      <p>Total de modules demandés: <span id="moduleCount">--</span></p>
+      <p>Demandes validées: <span id="approvedCount">--</span></p>
+      <p>Demandes en attente: <span id="pendingCount">--</span></p>
+    </div>
+
+    <div class="no-data hidden" id="noData">
+      <p>Aucune inscription encore. Les statistiques apparaîtront ici dès qu'une activité sera enregistrée.</p>
+    </div>
+
+    <div class="chart-area">
+      <canvas id="barChart" width="400" height="250"></canvas>
+      <canvas id="pieChart" width="250" height="250"></canvas>
+    </div>
+  </div>
+
+  <script src="JS_Files/Statistiques.js"></script>
+</body>
+</html>

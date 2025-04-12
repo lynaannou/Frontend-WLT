@@ -1,75 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>WLT USTHB: Fiche de voeux</title>
-    <link rel="icon" href="Assets/Logo,_USTHB.png">
-    <link rel="stylesheet" href="Styles/Fiche_de_voeux.css">
+  <meta charset="UTF-8" />
+  <title>WLT USTHB: Fiche de Vœux</title>
+  <link rel="icon" href="Assets/Logo,_USTHB.png" />
+  <link rel="stylesheet" href="Styles/Fiche_de_voeux.css" />
 </head>
 <body>
-<div class="user">
-  <img class="user_img" src="Assets/contacts-512.png">
-  <div class="user_info">
-    <h3 id="displayUsername">UserName </h3>
-    <h4 id="displayEmail">Email@gmail.com</h4>
+
+  <!-- User Info -->
+  <div class="user">
+    <img class="user_img" src="Assets/contacts-512.png" />
+    <div class="user_info">
+      <h3 id="displayUsername">UserName</h3>
+      <h4 id="displayEmail">Email@gmail.com</h4>
+    </div>
   </div>
-</div>
-<div id="choix_1" class="choix">
-  <h2 class="head">Choix de l'enseignement du Semester 1</h2>
-  <div class="choix">
-    <div>
+
+  <!-- STEP 1 -->
+  <div id="choix_1" class="choix">
+    <h2 class="head">Choix de l'enseignement du Semestre 1</h2>
     <table class="table">
       <thead>
-      <tr>
-        <th></th>
-        <th>Niveaux</th>
-        <th>Spécialité</th>
-        <th>Module</th>
-        <th>Cours</th>
-        <th>TD</th>
-        <th>TP</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td><span class="required">*</span>Choix 1</td>
-        <td><select><option>--</option></select></td>
-        <td><select><option>--</option></select></td>
-        <td><select><option>--</option></select></td>
-        <td><input type="checkbox"></td>
-        <td><input type="checkbox"></td>
-        <td><input type="checkbox"></td>
-      </tr>
-      <tr>
-        <td><span class="required">*</span>Choix 2</td>
-        <td><select><option>--</option></select></td>
-        <td><select><option>--</option></select></td>
-        <td><select><option>--</option></select></td>
-        <td><input type="checkbox"></td>
-        <td><input type="checkbox"></td>
-        <td><input type="checkbox"></td>
-      </tr>
-      <tr>
-        <td><span class="required">*</span>Choix 3</td>
-        <td><select><option>--</option></select></td>
-        <td><select><option>--</option></select></td>
-        <td><select><option>--</option></select></td>
-        <td><input type="checkbox"></td>
-        <td><input type="checkbox"></td>
-        <td><input type="checkbox"></td>
-      </tr>
-      </tbody>
-    </table>
-      <h2 class="warning obl">Il est obligatoire de remplir tous les choix</h2>
-      </div>
-  </div>
-</div>
-<div id="choix_2" class="choix hidden">
-  <h2 class="head">Choix de l'enseignement du Semester 2</h2>
-  <div class="choix">
-    <div>
-      <table class="table">
-        <thead>
         <tr>
           <th></th>
           <th>Niveaux</th>
@@ -79,51 +31,174 @@
           <th>TD</th>
           <th>TP</th>
         </tr>
-        </thead>
-        <tbody>
+      </thead>
+      <tbody>
         <tr>
           <td><span class="required">*</span>Choix 1</td>
           <td><select><option>--</option></select></td>
           <td><select><option>--</option></select></td>
           <td><select><option>--</option></select></td>
-          <td><input type="checkbox"></td>
-          <td><input type="checkbox"></td>
-          <td><input type="checkbox"></td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
         </tr>
         <tr>
           <td><span class="required">*</span>Choix 2</td>
           <td><select><option>--</option></select></td>
           <td><select><option>--</option></select></td>
           <td><select><option>--</option></select></td>
-          <td><input type="checkbox"></td>
-          <td><input type="checkbox"></td>
-          <td><input type="checkbox"></td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
         </tr>
         <tr>
           <td><span class="required">*</span>Choix 3</td>
           <td><select><option>--</option></select></td>
           <td><select><option>--</option></select></td>
           <td><select><option>--</option></select></td>
-          <td><input type="checkbox"></td>
-          <td><input type="checkbox"></td>
-          <td><input type="checkbox"></td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
         </tr>
-        </tbody>
-      </table>
-      <h2 class="warning obl">Il est obligatoire de remplir tous les choix</h2>
+      </tbody>
+    </table>
+    <h2 class="warning obl">Il est obligatoire de remplir tous les choix</h2>
+  </div>
+
+  <!-- STEP 2 -->
+  <div id="choix_2" class="choix hidden">
+    <h2 class="head">Choix de l'enseignement du Semestre 2</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Niveaux</th>
+          <th>Spécialité</th>
+          <th>Module</th>
+          <th>Cours</th>
+          <th>TD</th>
+          <th>TP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="required">*</span>Choix 1</td>
+          <td><select><option>--</option></select></td>
+          <td><select><option>--</option></select></td>
+          <td><select><option>--</option></select></td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
+        </tr>
+        <tr>
+          <td><span class="required">*</span>Choix 2</td>
+          <td><select><option>--</option></select></td>
+          <td><select><option>--</option></select></td>
+          <td><select><option>--</option></select></td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
+        </tr>
+        <tr>
+          <td><span class="required">*</span>Choix 3</td>
+          <td><select><option>--</option></select></td>
+          <td><select><option>--</option></select></td>
+          <td><select><option>--</option></select></td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
+          <td><input type="checkbox" /></td>
+        </tr>
+      </tbody>
+    </table>
+    <h2 class="warning obl">Il est obligatoire de remplir tous les choix</h2>
+  </div>
+
+  <!-- STEP 3 -->
+  <div id="extra_questions" class="choix hidden">
+    <h2 class="head">Questions Supplémentaires</h2>
+    <div class="questions-grid">
+
+      <div class="question-card">
+        <div class="question-label">Voulez-vous assurer des enseignements en heures supplémentaires pour le S1 ?</div>
+        <div class="question-inputs">
+          <label><input type="radio" name="extraHours" /> Oui</label>
+          <label><input type="radio" name="extraHours" /> Non</label>
+        </div>
+      </div>
+
+      <div class="question-card">
+        <div class="question-label">Si oui, précisez le nombre d’heures supplémentaires</div>
+        <input type="number" class="number-field" placeholder="0" />
+      </div>
+
+      <div class="question-card">
+        <div class="question-label">Nombre de PFE Licence prévus pour cette année</div>
+        <input type="number" class="number-field" placeholder="0" />
+      </div>
+
+      <div class="question-card">
+        <div class="question-label">Nombre de PFE Master prévus pour cette année</div>
+        <input type="number" class="number-field" placeholder="0" />
+      </div>
+
     </div>
   </div>
-</div>
-<div class="navigate">
-  <div class="previous">
-    <button id="previous" class="navigate_button"><h3><-- Previous</h3></button>
-  </div>
-  <div class="next">
-    <button id="next" class="navigate_button"><h3>Next  --></h3></button>
-  </div>
-</div>
 
-<script src="JS_Files/Logedin.js"></script>
-<script src="JS_Files/Fiche_de_voeux.js"></script>
+  <!-- Navigation -->
+  <div class="navigate">
+    <div class="previous">
+      <button id="previous" class="navigate_button"><h3><-- Précédent</h3></button>
+    </div>
+    <div class="next">
+      <button id="next" class="navigate_button"><h3>Suivant --></h3></button>
+      <button id="doneBtn" class="navigate_button hidden"><h3>✅ Terminer</h3></button>
+    </div>
+  </div>
+
+  <script>
+    const choix1 = document.getElementById("choix_1");
+    const choix2 = document.getElementById("choix_2");
+    const extraQuestions = document.getElementById("extra_questions");
+    const previousBtn = document.getElementById("previous");
+    const nextBtn = document.getElementById("next");
+    const doneBtn = document.getElementById("doneBtn");
+
+    let step = 1;
+
+    function showStep(step) {
+      choix1.classList.add("hidden");
+      choix2.classList.add("hidden");
+      extraQuestions.classList.add("hidden");
+
+      if (step === 1) choix1.classList.remove("hidden");
+      if (step === 2) choix2.classList.remove("hidden");
+      if (step === 3) extraQuestions.classList.remove("hidden");
+
+      previousBtn.style.display = step > 1 ? "block" : "none";
+      nextBtn.style.display = step < 3 ? "block" : "none";
+      doneBtn.classList.toggle("hidden", step !== 3);
+    }
+
+    showStep(step);
+
+    nextBtn.addEventListener("click", () => {
+      if (step < 3) {
+        step++;
+        showStep(step);
+      }
+    });
+
+    previousBtn.addEventListener("click", () => {
+      if (step > 1) {
+        step--;
+        showStep(step);
+      }
+    });
+
+    doneBtn.addEventListener("click", () => {
+      localStorage.setItem("ficheCompleted", true);
+      window.location.href = "confirmation.html";
+    });
+  </script>
 </body>
 </html>

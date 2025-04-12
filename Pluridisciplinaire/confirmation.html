@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Merci - WLT USTHB</title>
+  <link rel="icon" href="Assets/Logo,_USTHB.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="Styles/confirmation.css" />
+</head>
+<body>
+  <div class="thank-you-box" id="thankYouBox">
+    <img src="Assets/Logo,_USTHB.png" alt="Logo USTHB" class="usthb-logo" />
+    <h1>🎉 Merci d’avoir rempli la fiche de vœux !</h1>
+    <p>Votre fiche a été enregistrée avec succès.</p>
+    <p>Vous pouvez maintenant consulter un résumé de vos choix.</p>
+    <button class="see-choices-btn" onclick="showSummary()">Voir mes choix</button>
+  </div>
+
+  <!-- Hidden by default, shown after clicking "Voir mes choix" -->
+  <div class="confirmation-container hidden" id="summaryBox">
+    <h1>✅ Récapitulatif</h1>
+    <p>Voici les informations enregistrées :</p>
+
+    <div class="summary">
+      <p><strong>Nom :</strong> <span id="userName">--</span></p>
+      <p><strong>Email :</strong> <span id="userEmail">--</span></p>
+      <hr />
+      <h3>Choix Semestre 1 :</h3>
+      <ul id="sem1Choices"></ul>
+      <h3>Choix Semestre 2 :</h3>
+      <ul id="sem2Choices"></ul>
+      <h3>Informations Supplémentaires :</h3>
+      <ul id="extras"></ul>
+    </div>
+
+    <a href="Loged%20in.html" class="return-button">Retour à l’accueil</a>
+  </div>
+
+  <script>
+    function showSummary() {
+      document.getElementById("thankYouBox").classList.add("hidden");
+      document.getElementById("summaryBox").classList.remove("hidden");
+
+      const name = localStorage.getItem("username") || "--";
+      const email = localStorage.getItem("email") || "--";
+
+      document.getElementById("userName").textContent = name;
+      document.getElementById("userEmail").textContent = email;
+
+      const sem1 = JSON.parse(localStorage.getItem("sem1Choices") || "[]");
+      const sem2 = JSON.parse(localStorage.getItem("sem2Choices") || "[]");
+      const extra = JSON.parse(localStorage.getItem("extraQuestions") || "[]");
+
+      const s1List = document.getElementById("sem1Choices");
+      s1List.innerHTML = sem1.length ? "" : "<li>Aucun choix enregistré.</li>";
+      sem1.forEach((item, i) => s1List.innerHTML += `<li><strong>Choix ${i + 1}:</strong> ${item}</li>`);
+
+      const s2List = document.getElementById("sem2Choices");
+      s2List.innerHTML = sem2.length ? "" : "<li>Aucun choix enregistré.</li>";
+      sem2.forEach((item, i) => s2List.innerHTML += `<li><strong>Choix ${i + 1}:</strong> ${item}</li>`);
+
+      const xList = document.getElementById("extras");
+      xList.innerHTML = extra.length ? "" : "<li>Aucune information supplémentaire.</li>";
+      extra.forEach((item) => xList.innerHTML += `<li>${item}</li>`);
+    }
+  </script>
+</body>
+</html>

@@ -1,51 +1,101 @@
-*{
-    font-family: Atkinson Hyperlegible Next;
-}
-.user_img{
-    margin: 0 ;
-    width:100px;
-    height:100px;
-}
-.user_info{
-    color: white;
-    margin-left: 25px
-}
-.user{
-    display: flex;
-    margin: 25px;
-    backdrop-filter: blur(20px);
-    width: fit-content;
-    padding: 10px;
-    border-radius: 10px;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
-.logo{
-    width: 200px;
-    height: 200px;
-    margin: 50px 50px 0 50px;
-    padding: 50px;
-    border-radius: 10px;
-}
-.logo:hover{
-    cursor: pointer;
-    transition: 1s;
-    background-color:  #5FA9DD;
-}
-.centre{
+
+body {
+    background: linear-gradient(135deg, #21195a, #6c4785, #8a6fa0);
+    background-size: 400% 400%;
+    animation: backgroundShift 15s ease infinite;
     color: white;
-    margin: auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* === USER INFO === */
+.user {
     display: flex;
+    align-items: center;
+    margin: 20px;
+    padding: 15px 25px;
+    border-radius: 15px;
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     width: fit-content;
-    backdrop-filter: blur(40px);
+}
+
+.user_img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user_info {
+    margin-left: 20px;
+    color: white;
+}
+
+/* === DASHBOARD CENTER === */
+.centre {
+    margin: 40px auto;
+    padding: 20px 30px;
+    display: flex;
+    gap: 40px;
+    width: fit-content;
     align-items: center;
     justify-content: center;
     text-align: center;
-    border-radius: 15px;
-    /* haylik wech zedt 3liha*/
-    background-color: #2d2b4a;
+    border-radius: 20px;
+    backdrop-filter: blur(30px);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
-h5{
-    color: white;
+
+/* === LOGO BUTTONS === */
+.logo {
+    width: 150px;
+    height: 150px;
+    padding: 30px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.07);
+    transition: all 0.4s ease-in-out;
+}
+
+.logo:hover {
+    background-color: rgba(95, 169, 221, 0.8);
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.centre div h4 {
+    margin-top: 15px;
+    font-weight: 500;
+    color: #fff;
+}
+
+/* === FOOTER PROMPT === */
+h5 {
     text-align: center;
-    font-size: 25px;
+    font-size: 24px;
+    color: white;
+    margin-top: 30px;
+}
+
+/* === ANIMATED BACKGROUND === */
+@keyframes backgroundShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }

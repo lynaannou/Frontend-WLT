@@ -1,0 +1,126 @@
+body {
+    margin: 0;
+    padding: 40px 20px;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #21195a, #6c4785, #8a6fa0);
+    background-size: 400% 400%;
+    animation: backgroundShift 15s ease infinite;
+    color: white;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .thank-you-box {
+    max-width: 700px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.07);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 1s ease;
+  }
+  
+  .usthb-logo {
+    width: 100px;
+    margin-bottom: 20px;
+  }
+  
+  .thank-you-box h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+  }
+  
+  .thank-you-box p {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+  .see-choices-btn {
+    margin-top: 25px;
+    background: #5FA9DD;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .see-choices-btn:hover {
+    background: #4095cd;
+    transform: scale(1.05);
+  }
+  
+  /* Summary area */
+  .confirmation-container {
+    max-width: 800px;
+    margin: 30px auto;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    animation: fadeIn 0.6s ease;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .summary {
+    margin-top: 20px;
+  }
+  
+  .summary p,
+  .summary ul {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .summary ul {
+    padding-left: 20px;
+    list-style-type: disc;
+  }
+  
+  hr {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    margin: 20px 0;
+  }
+  
+  .return-button {
+    display: inline-block;
+    margin-top: 30px;
+    background: #5FA9DD;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .return-button:hover {
+    background: #4095cd;
+    transform: scale(1.05);
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes backgroundShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
