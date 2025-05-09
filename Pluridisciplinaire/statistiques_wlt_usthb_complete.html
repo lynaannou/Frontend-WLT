@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>WLT USTHB: Statistiques</title>
+  <link rel="stylesheet" href="Styles/Statistiques.css" />
+  <link rel="icon" href="Assets/Logo,_USTHB.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 Statistiques Générales</h1>
+
+    <div class="filters" style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+      <select id="filterDepartement"><option value="">Département (Tous)</option></select>
+      <select id="filterSpecialite"><option value="">Spécialité (Toutes)</option></select>
+      <select id="filterGrade"><option value="">Grade (Tous)</option></select>
+      <select id="filterSort">
+        <option value="">-- Tri --</option>
+        <option value="alpha">Ordre Alphabétique</option>
+        <option value="arrivalAsc">Ordre d’arrivée</option>
+        <option value="arrivalDesc">Dernier arrivé</option>
+      </select>
+    </div>
+
+    <div class="prof-list">
+      <h2>👤 Liste des Professeurs</h2>
+      <div id="professorButtons" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 40px;"></div>
+    </div>
+
+    <div class="stats-box" id="statsSection">
+      <p>Total de professeurs inscrits: <span id="profCount">--</span></p>
+      <p>Total de modules demandés: <span id="moduleCount">--</span></p>
+      <p>Demandes validées: <span id="approvedCount">--</span></p>
+      <p>Demandes en attente: <span id="pendingCount">--</span></p>
+    </div>
+
+    <div class="chart-area" id="printArea">
+      <canvas id="barChart" width="400" height="250"></canvas>
+      <canvas id="pieChart" width="250" height="250"></canvas>
+      <canvas id="suppChart" width="400" height="250"></canvas>
+    </div>
+
+    <div class="buttons-area" style="margin-top: 40px;">
+      <button onclick="downloadExcel(1)">📥 Excel S1</button>
+      <button onclick="downloadExcel(2)">📥 Excel S2</button>
+      <button onclick="downloadPDF(1)">🧾 PDF S1</button>
+      <button onclick="downloadPDF(2)">🧾 PDF S2</button>
+      <button onclick="window.print()">🖨️ Imprimer</button>
+    </div>
+  </div>
+
+  <script>
+    const email = localStorage.getItem("email");
+    if (email !== "admin@email.com") {
+      alert("Accès réservé à l'administrateur.");
+      window.location.href = "index.html";
+    }
+
+    const professors = JSON.parse(localStorage.getItem("professors") || "[]");
+
+    const stats = {
+      profCount: professors.length,
+      moduleCount: professors.reduce((sum, p) => sum + (p.semestre1?.length || 0) + (p.semestre2?.length || 0), 0),
+      approvedCount: professors.filter(p => p.validated).length,
+      pendingCount: professors.filter(p => !p.validated).length,
+      suppS1: professors.filter(p => (p.questions?.["Heures supplémentaires S1"] || "").toLowerCase().startsWith("oui")).length,
+      suppS2: professors.filter(p => (p.questions?.["Heures supplémentaires S2"] || "").toLowerCase().startsWith("oui")).length,
+    };
+
+    // Display stats
+    document.getElementById("profCount").textContent = stats.profCount;
+    document.getElementById("moduleCount").textContent = stats.moduleCount;
+    document.getElementById("approvedCount").textContent = stats.approvedCount;
+    document.getElementById("pendingCount").textContent = stats.pendingCount;
+
+    // Graphs
+    new Chart(document.getElementById("barChart"), {
+      type: "bar",
+      data: {
+        labels: ["Profs", "Modules", "Validés", "En attente"],
+        datasets: [{
+          label: "Valeurs",
+          backgroundColor: ["#8e44ad", "#5FA9DD", "#27ae60", "#e67e22"],
+          data: [stats.profCount, stats.moduleCount, stats.approvedCount, stats.pendingCount]
+        }]
+      }
+    });
+
+    new Chart(document.getElementById("pieChart"), {
+      type: "pie",
+      data: {
+        labels: ["Validés", "En attente"],
+        datasets: [{
+          backgroundColor: ["#27ae60", "#e67e22"],
+          data: [stats.approvedCount, stats.pendingCount]
+        }]
+      }
+    });
+
+    new Chart(document.getElementById("suppChart"), {
+      type: "bar",
+      data: {
+        labels: ["Heures Supp S1", "Heures Supp S2"],
+        datasets: [{
+          label: "Réponses Oui",
+          backgroundColor: ["#9b59b6", "#3498db"],
+          data: [stats.suppS1, stats.suppS2]
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        scales: {
+          x: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      }
+    });
+
+    // Initial setup for filter dropdowns
+    const departements = [...new Set(professors.map(p => p.departement))];
+    const specialites = [...new Set(professors.flatMap(p =>
+      (p.semestre1 || []).concat(p.semestre2 || []).map(m => m.name)))];
+    const grades = [...new Set(professors.map(p => p.grade))];
+
+    const addOptions = (selectId, options) => {
+      const select = document.getElementById(selectId);
+      options.forEach(opt => {
+        const o = document.createElement("option");
+        o.value = opt;
+        o.textContent = opt;
+        select.appendChild(o);
+      });
+    };
+
+    addOptions("filterDepartement", departements);
+    addOptions("filterSpecialite", specialites);
+    addOptions("filterGrade", grades);
+
+    function renderFilteredList() {
+      const selectedDept = document.getElementById("filterDepartement").value;
+      const selectedSpec = document.getElementById("filterSpecialite").value;
+      const selectedGrade = document.getElementById("filterGrade").value;
+      const sortType = document.getElementById("filterSort").value;
+
+      let filtered = [...professors];
+
+      if (selectedDept) filtered = filtered.filter(p => p.departement === selectedDept);
+      if (selectedSpec) filtered = filtered.filter(p =>
+        (p.semestre1 || []).concat(p.semestre2 || []).some(m => m.name === selectedSpec)
+      );
+      if (selectedGrade) filtered = filtered.filter(p => p.grade === selectedGrade);
+
+      if (sortType === "alpha") {
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+      } else if (sortType === "arrivalAsc") {
+        filtered.sort((a, b) => a.id - b.id); // Plus ancien en premier
+      } else if (sortType === "arrivalDesc") {
+        filtered.sort((a, b) => b.id - a.id); // Plus récent en premier
+      }
+
+      const container = document.getElementById("professorButtons");
+      container.innerHTML = "";
+      filtered.forEach(p => {
+        const btn = document.createElement("button");
+        btn.textContent = p.name;
+        btn.className = "login_button";
+        btn.onclick = () => {
+          window.location.href = `professor.html?id=${p.id}`;
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    document.getElementById("filterDepartement").onchange =
+    document.getElementById("filterSpecialite").onchange =
+    document.getElementById("filterGrade").onchange =
+    document.getElementById("filterSort").onchange =
+    renderFilteredList;
+
+    // Initial list
+    renderFilteredList();
+    function prepareData(semestre) {
+  const rows = [];
+  professors.forEach(p => {
+    const mods = semestre === 1 ? p.semestre1 : p.semestre2;
+    if (!mods || !mods.length) return;
+
+    mods.forEach((mod, i) => {
+      rows.push({
+        "Nom": p.name,
+        "Email": p.email,
+        "Département": p.departement,
+        "Grade": p.grade,
+        "Choix / Module": `Choix ${i + 1} / ${mod.name}`,
+        "Cours": mod.cours ? "Oui" : "Non",
+        "TD": mod.td ? "Oui" : "Non",
+        "TP": mod.tp ? "Oui" : "Non",
+        "Heures Suppl.": i === 0 ? (p.questions?.[`Heures supplémentaires S${semestre}`] || "") : "",
+        "PFE Licence": i === 0 ? (p.questions?.["PFE Licence"] || "") : "",
+        "PFE Master": i === 0 ? (p.questions?.["PFE Master"] || "") : "",
+        "Statut": i === 0 ? (p.validated ? "Validé" : "En attente") : ""
+      });
+    });
+  });
+  return rows;
+}
+
+function downloadExcel(semestre) {
+  const rows = prepareData(semestre);
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.json_to_sheet(rows);
+  XLSX.utils.book_append_sheet(wb, ws, `Semestre${semestre}`);
+  XLSX.writeFile(wb, `Semestre${semestre}_Professeurs.xlsx`);
+}
+
+async function downloadPDF(semestre) {
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF("landscape");
+  pdf.setFontSize(16);
+  pdf.text(`Statistiques des Professeurs - Semestre ${semestre}`, 14, 20);
+
+  const tableData = prepareData(semestre).map(row => [
+    row["Nom"], row["Email"], row["Département"], row["Grade"],
+    row["Choix / Module"], row["Cours"], row["TD"], row["TP"],
+    row["Heures Suppl."], row["PFE Licence"], row["PFE Master"], row["Statut"]
+  ]);
+
+  pdf.autoTable({
+    head: [["Nom", "Email", "Département", "Grade", "Choix / Module", "Cours", "TD", "TP", "Heures Suppl.", "PFE L", "PFE M", "Statut"]],
+    body: tableData,
+    startY: 30,
+    styles: { fontSize: 9 },
+    theme: "grid"
+  });
+
+  pdf.save(`Semestre${semestre}_Professeurs.pdf`);
+}
+
+  </script>
+ 
+
+</body>
+</html>

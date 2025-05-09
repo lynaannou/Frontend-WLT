@@ -209,7 +209,18 @@ body {
     height: 140px;
     object-fit: cover;
 }
-
+.purple-panel {
+    background-color: rgba(107, 91, 149, 0.9) !important;
+  }
+  
+  .blue-panel {
+    background-color: rgba(95, 169, 221, 0.9) !important;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
 
 /* === ANIMATED BACKGROUND === */
 @keyframes backgroundShift {

@@ -1,65 +1,79 @@
 console.log("hi");
 
 document.addEventListener("DOMContentLoaded", () => {
-  const registerButton = document.getElementById("register");
-  const loginButton = document.getElementById("aleady_login");
-  const preload = document.getElementById("preload");
-  const container = document.getElementById("container");
+  // LOGIN
+  const loginButton = document.querySelector(".LoginButton");
+  const usernameInput = document.querySelector(".Username");
+  const passwordInput = document.querySelector(".Password");
 
-  const alreadySection = document.getElementById("already");
-  const loginSection = document.getElementById("login");
-  const registerSection = document.getElementById("registerr");
-  const welcomeSection = document.getElementById("welcome");
+  if (loginButton && usernameInput && passwordInput) {
+    loginButton.addEventListener("click", (e) => {
+      e.preventDefault();
 
-  // Preloader Fade Out (After 2s)
+      const username = usernameInput.value;
+      const password = passwordInput.value;
+
+      fetch("http://localhost:8080/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email: username, password: password })
+      })
+        .then(res => {
+          if (!res.ok) throw new Error("Login failed");
+          return res.json();
+        })
+        .then(data => {
+          alert("Login successful!");
+          localStorage.setItem("token", data.token); // optional
+          window.location.href = "../Pluridisciplinaire/index.html";
+        })
+        .catch(err => {
+          alert("Login error: " + err.message);
+        });
+    });
+  }
+
+  // PANEL TOGGLES
+  const registerBtn = document.getElementById("register");
+  const alreadyLoginBtn = document.getElementById("aleady_login");
+
+  if (registerBtn) {
+    registerBtn.addEventListener("click", () => {
+      document.getElementById("already").classList.remove("hidden");
+      document.getElementById("already").classList.add("move-right");
+      document.getElementById("login").classList.add("hidden");
+      document.getElementById("registerr").classList.remove("hidden");
+      document.getElementById("registerr").classList.add("move-left");
+      document.getElementById("welcome").classList.add("hidden");
+    });
+  }
+
+  if (alreadyLoginBtn) {
+    alreadyLoginBtn.addEventListener("click", () => {
+      document.getElementById("already").classList.add("hidden");
+      document.getElementById("login").classList.remove("move-right");
+      document.getElementById("login").classList.remove("hidden");
+      document.getElementById("registerr").classList.add("hidden");
+      document.getElementById("registerr").classList.remove("move-left");
+      document.getElementById("welcome").classList.remove("hidden");
+    });
+  }
+
+  // PRELOADER
   setTimeout(() => {
-    preload.classList.add("hidden");
-    container.classList.remove("hidden");
+    document.getElementById("preload").classList.add("hidden");
+    document.getElementById("container").classList.remove("hidden");
   }, 2000);
 
-  // Transition to Register Panel
-  registerButton.addEventListener("click", () => {
-    // Show register side + blue login prompt
-    alreadySection.classList.remove("hidden");
-    alreadySection.classList.add("move-right", "blue-panel");
-    alreadySection.classList.remove("purple-panel");
-
-    // Show register form
-    registerSection.classList.remove("hidden");
-    registerSection.classList.add("move-left");
-
-    // Hide login stuff
-    loginSection.classList.add("hidden");
-    welcomeSection.classList.add("hidden");
-    welcomeSection.classList.remove("purple-panel");
-  });
-
-  // Transition to Login Panel
-  loginButton.addEventListener("click", () => {
-    // Hide register-side login prompt
-    alreadySection.classList.add("hidden");
-    alreadySection.classList.remove("move-right", "blue-panel");
-
-    // Hide register form
-    registerSection.classList.add("hidden");
-    registerSection.classList.remove("move-left");
-
-    // Show login form
-    loginSection.classList.remove("hidden");
-
-    // Show welcome side in purple again
-    welcomeSection.classList.remove("hidden");
-    welcomeSection.classList.add("purple-panel");
-  });
-
-  // Toggle Password Visibility (clicking key icon)
+  // TOGGLE PASSWORD VISIBILITY
   const passwordIcon = document.getElementById("password");
-  const passwordInput = document.getElementById("password_fill");
-
-  if (passwordIcon && passwordInput) {
+  const passwordField = document.getElementById("passwordInput");
+  if (passwordIcon && passwordField) {
     passwordIcon.addEventListener("click", () => {
-      const isHidden = passwordInput.type === "password";
-      passwordInput.type = isHidden ? "text" : "password";
+      const type = passwordField.getAttribute("type");
+      passwordField.setAttribute("type", type === "password" ? "text" : "password");
     });
   }
 });

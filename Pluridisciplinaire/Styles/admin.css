@@ -1,0 +1,89 @@
+
+/* Admin-specific styling */
+body {
+    background: linear-gradient(135deg, #21195a, #6c4785, #8a6fa0);
+    background-size: 400% 400%;
+    animation: backgroundShift 15s ease infinite;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  .container {
+    max-width: 1000px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  h1, h2, h3 {
+    text-align: center;
+    color: #ffffff;
+  }
+  
+  table {
+    width: 100%;
+    margin-top: 30px;
+    border-collapse: collapse;
+    font-size: 16px;
+    color: white;
+  }
+  
+  th, td {
+    padding: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+  }
+  
+  th {
+    background: rgba(95, 169, 221, 0.3);
+  }
+  
+  button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #5FA9DD;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #4095cd;
+  }
+  
+  .status-select {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    background-color: #8e44ad;
+    color: white;
+  }
+  
+  .back-link {
+    display: inline-block;
+    margin-top: 30px;
+    font-size: 18px;
+    text-decoration: none;
+    color: #5FA9DD;
+    transition: color 0.2s ease;
+  }
+  
+  .back-link:hover {
+    color: #ffffff;
+  }
+  
+  @keyframes backgroundShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  

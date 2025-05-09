@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Détails du Professeur</title>
+  <link rel="stylesheet" href="Styles/Statistiques.css" />
+  <link rel="stylesheet" href="Styles/admin.css" />
+  <link rel="icon" href="Assets/Logo,_USTHB.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      padding: 40px;
+      background: linear-gradient(to right, #21195a, #6c4785);
+      color: white;
+      font-family: 'Poppins', sans-serif;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 30px;
+      backdrop-filter: blur(12px);
+    }
+    .section {
+      margin-bottom: 25px;
+    }
+    .section h3 {
+      margin-bottom: 10px;
+      color: #5FA9DD;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .validation-box {
+      margin-top: 20px;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    select {
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+    .back-button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      border: none;
+      background: #5FA9DD;
+      color: white;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .back-button:hover {
+      background: #4095cd;
+    }
+    .sub-info {
+      font-size: 15px;
+      color: #ddd;
+      margin-top: 5px;
+      margin-left: 10px;
+    }
+    .hours-summary {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #FFD700;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Détails du Professeur</h1>
+
+    <div class="section">
+      <h3>Nom :</h3>
+      <p id="profName">--</p>
+    </div>
+
+    <div class="section">
+      <h3>Email :</h3>
+      <p id="profEmail">--</p>
+    </div>
+
+    <div class="section">
+      <h3>Grade :</h3>
+      <p id="profGrade">--</p>
+    </div>
+
+    <div class="section">
+      <h3>Département :</h3>
+      <p id="profDept">--</p>
+    </div>
+
+    <div class="section">
+      <h3>Modules Semestre 1 :</h3>
+      <ul id="s1Modules"></ul>
+      <div class="hours-summary" id="s1Hours"></div>
+    </div>
+
+    <div class="section">
+      <h3>Modules Semestre 2 :</h3>
+      <ul id="s2Modules"></ul>
+      <div class="hours-summary" id="s2Hours"></div>
+    </div>
+
+    <div class="section">
+      <h3>Réponses Supplémentaires :</h3>
+      <ul id="questionAnswers"></ul>
+    </div>
+
+    <div class="validation-box">
+      <label for="validationSelect">Statut :</label>
+      <select id="validationSelect">
+        <option value="true">✅ Validé</option>
+        <option value="false">⏳ En attente</option>
+      </select>
+    </div>
+
+    <button class="back-button" onclick="goBack()">⬅ Retour</button>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const profId = parseInt(urlParams.get("id"));
+
+    const professors = JSON.parse(localStorage.getItem("professors") || "[]");
+    const prof = professors[profId];
+
+    if (!prof) {
+      alert("Professeur introuvable !");
+      window.location.href = "stats.html";
+    }
+
+    document.getElementById("profName").textContent = prof.name || "—";
+    document.getElementById("profEmail").textContent = prof.email || "—";
+    document.getElementById("profGrade").textContent = prof.grade || "—";
+    document.getElementById("profDept").textContent = prof.departement || "—";
+
+    // Modules S1
+    const s1 = document.getElementById("s1Modules");
+    let s1Hours = 0;
+    if (prof.semestre1 && prof.semestre1.length > 0) {
+      prof.semestre1.forEach((mod, i) => {
+        const cours = mod.cours ? 3 : 0;
+        const td = mod.td ? 1.5 : 0;
+        const tp = mod.tp ? 1.5 : 0;
+        s1Hours += cours + td + tp;
+
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>Choix ${i + 1} :</strong> ${mod.name}
+        <div class="sub-info">Cours: ${mod.cours ? "✅" : "❌"} | TD: ${mod.td ? "✅" : "❌"} | TP: ${mod.tp ? "✅" : "❌"}</div>`;
+        s1.appendChild(li);
+      });
+    } else {
+      s1.innerHTML = "<li>Aucun module enregistré.</li>";
+    }
+    document.getElementById("s1Hours").textContent = `Total d’heures S1: ${s1Hours}h`;
+
+    // Modules S2
+    const s2 = document.getElementById("s2Modules");
+    let s2Hours = 0;
+    if (prof.semestre2 && prof.semestre2.length > 0) {
+      prof.semestre2.forEach((mod, i) => {
+        const cours = mod.cours ? 3 : 0;
+        const td = mod.td ? 1.5 : 0;
+        const tp = mod.tp ? 1.5 : 0;
+        s2Hours += cours + td + tp;
+
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>Choix ${i + 1} :</strong> ${mod.name}
+        <div class="sub-info">Cours: ${mod.cours ? "✅" : "❌"} | TD: ${mod.td ? "✅" : "❌"} | TP: ${mod.tp ? "✅" : "❌"}</div>`;
+        s2.appendChild(li);
+      });
+    } else {
+      s2.innerHTML = "<li>Aucun module enregistré.</li>";
+    }
+    document.getElementById("s2Hours").textContent = `Total d’heures S2: ${s2Hours}h`;
+
+    // Questions
+    const questionAnswers = document.getElementById("questionAnswers");
+    if (prof.questions) {
+      for (const [question, answer] of Object.entries(prof.questions)) {
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${question}:</strong> ${answer}`;
+        questionAnswers.appendChild(li);
+      }
+    } else {
+      questionAnswers.innerHTML = "<li>Pas de réponses disponibles.</li>";
+    }
+
+    // Validation dropdown
+    const select = document.getElementById("validationSelect");
+    select.value = prof.validated ? "true" : "false";
+    select.addEventListener("change", (e) => {
+      prof.validated = e.target.value === "true";
+      professors[profId] = prof;
+      localStorage.setItem("professors", JSON.stringify(professors));
+      alert("Statut mis à jour !");
+    });
+
+    function goBack() {
+      window.location.href = "stats.html";
+    }
+  </script>
+</body>
+</html>

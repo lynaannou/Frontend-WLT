@@ -7,10 +7,19 @@
   <link rel="icon" href="Assets/Logo,_USTHB.png" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
 </head>
+
 <body>
   <div class="container">
     <h1>📊 Statistiques Générales</h1>
+
+    <div class="prof-list">
+      <h2>👤 Liste des Professeurs</h2>
+      <div id="professorButtons" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 40px;"></div>
+    </div>
 
     <div class="stats-box" id="statsSection">
       <p>Total de professeurs inscrits: <span id="profCount">--</span></p>
@@ -19,16 +28,216 @@
       <p>Demandes en attente: <span id="pendingCount">--</span></p>
     </div>
 
-    <div class="no-data hidden" id="noData">
-      <p>Aucune inscription encore. Les statistiques apparaîtront ici dès qu'une activité sera enregistrée.</p>
-    </div>
-
-    <div class="chart-area">
+    <div class="chart-area" id="printArea">
       <canvas id="barChart" width="400" height="250"></canvas>
       <canvas id="pieChart" width="250" height="250"></canvas>
     </div>
+
+    <div class="buttons-area" style="margin-top: 40px;">
+      <button onclick="downloadExcel(1)">📥 Excel S1</button>
+      <button onclick="downloadExcel(2)">📥 Excel S2</button>
+      <button onclick="downloadPDF(1)">🧾 PDF S1</button>
+      <button onclick="downloadPDF(2)">🧾 PDF S2</button>
+      <button onclick="window.print()">🖨️ Imprimer</button>
+    </div>
   </div>
 
-  <script src="JS_Files/Statistiques.js"></script>
+  <script>
+    const email = localStorage.getItem("email");
+    if (email !== "admin@email.com") {
+      alert("Accès réservé à l'administrateur.");
+      window.location.href = "index.html";
+    }
+    
+    const professors = JSON.parse(localStorage.getItem("professors") || "[]");
+    
+    const stats = {
+      profCount: professors.length,
+      moduleCount: professors.reduce((sum, p) => sum + (p.semestre1?.length || 0) + (p.semestre2?.length || 0), 0),
+      approvedCount: professors.filter(p => p.validated).length,
+      pendingCount: professors.filter(p => !p.validated).length,
+      suppS1: professors.filter(p => (p.questions?.["Heures supplémentaires S1"] || "").toLowerCase().startsWith("oui")).length,
+      suppS2: professors.filter(p => (p.questions?.["Heures supplémentaires S2"] || "").toLowerCase().startsWith("oui")).length,
+    };
+    
+    // Update Stats in DOM
+    document.getElementById("profCount").textContent = stats.profCount;
+    document.getElementById("moduleCount").textContent = stats.moduleCount;
+    document.getElementById("approvedCount").textContent = stats.approvedCount;
+    document.getElementById("pendingCount").textContent = stats.pendingCount;
+    
+    // Charts
+    new Chart(document.getElementById("barChart").getContext("2d"), {
+      type: "bar",
+      data: {
+        labels: ["Profs", "Modules", "Validés", "En attente"],
+        datasets: [{
+          label: "Valeurs",
+          backgroundColor: ["#8e44ad", "#5FA9DD", "#27ae60", "#e67e22"],
+          data: [stats.profCount, stats.moduleCount, stats.approvedCount, stats.pendingCount]
+        }]
+      }
+    });
+    
+    new Chart(document.getElementById("pieChart").getContext("2d"), {
+      type: "pie",
+      data: {
+        labels: ["Validés", "En attente"],
+        datasets: [{
+          backgroundColor: ["#27ae60", "#e67e22"],
+          data: [stats.approvedCount, stats.pendingCount]
+        }]
+      }
+    });
+    
+    // Heures Supp chart
+    const suppCanvas = document.createElement("canvas");
+    suppCanvas.id = "suppChart";
+    suppCanvas.width = 400;
+    suppCanvas.height = 200;
+    document.getElementById("printArea").appendChild(suppCanvas);
+    
+    new Chart(suppCanvas.getContext("2d"), {
+      type: "bar",
+      data: {
+        labels: ["Heures Supp S1", "Heures Supp S2"],
+        datasets: [{
+          label: "Professeurs ayant répondu Oui",
+          backgroundColor: ["#9b59b6", "#3498db"],
+          data: [stats.suppS1, stats.suppS2]
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        scales: {
+          x: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      }
+    });
+    
+    const professorColors = {
+      "Lyna Annou": "#459889",
+      "Meriem Ouguenoune": "#3a9da9",
+      "Amina Boukhanouche": "#a4c518",
+      "Amira Berrabah": "#f5470f",
+      "Amine Belhadj": "#a76b80",
+      "Ramzy Belaidi": "#01dcc1"
+    };
+    
+    function prepareData(semestre) {
+      const rows = [];
+      professors.forEach(p => {
+        const mods = semestre === 1 ? p.semestre1 : p.semestre2;
+        if (!mods || !mods.length) return;
+    
+        mods.forEach((mod, i) => {
+          rows.push({
+            name: p.name,
+            row: {
+              "Nom": p.name,
+              "Email": p.email,
+              "Département": p.departement,
+              "Grade": p.grade,
+              "Choix / Module": `Choix ${i + 1} / ${mod.name}`,
+              "Cours": mod.cours ? "Oui" : "Non",
+              "TD": mod.td ? "Oui" : "Non",
+              "TP": mod.tp ? "Oui" : "Non",
+              "Heures Suppl.": i === 0 ? (p.questions?.[`Heures supplémentaires S${semestre}`] || "") : "",
+              "PFE Licence": i === 0 ? (p.questions?.["PFE Licence"] || "") : "",
+              "PFE Master": i === 0 ? (p.questions?.["PFE Master"] || "") : "",
+              "Statut": i === 0 ? (p.validated ? "Validé" : "En attente") : ""
+            }
+          });
+        });
+      });
+      return rows;
+    }
+    
+    function downloadExcel(semestre) {
+      const data = prepareData(semestre);
+      const wb = XLSX.utils.book_new();
+      const wsData = [Object.keys(data[0].row)];
+    
+      data.forEach(item => {
+        wsData.push(Object.values(item.row));
+      });
+    
+      const ws = XLSX.utils.aoa_to_sheet(wsData);
+    
+      // Color rows based on professor name
+      const range = XLSX.utils.decode_range(ws['!ref']);
+      for (let R = 1; R <= range.e.r; R++) {
+        const nameCell = ws[XLSX.utils.encode_cell({ r: R, c: 0 })];
+        const profName = nameCell ? nameCell.v : "";
+        const bgColor = professorColors[profName] || "#f1f1f1";
+    
+        for (let C = 0; C <= range.e.c; C++) {
+          const cellRef = XLSX.utils.encode_cell({ r: R, c: C });
+          if (!ws[cellRef]) continue;
+          if (!ws[cellRef].s) ws[cellRef].s = {};
+          ws[cellRef].s.fill = {
+            patternType: "solid",
+            fgColor: { rgb: bgColor.replace("#", "") }
+          };
+        }
+      }
+    
+      ws["!cols"] = Array(wsData[0].length).fill({ wch: 20 });
+      XLSX.utils.book_append_sheet(wb, ws, `Semestre${semestre}`);
+      XLSX.writeFile(wb, `Semestre${semestre}_Professeurs.xlsx`);
+    }
+    
+    async function downloadPDF(semestre) {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF("landscape");
+      pdf.setFontSize(16);
+      pdf.text(`Statistiques des Professeurs - Semestre ${semestre}`, 14, 20);
+    
+      setTimeout(() => {
+        const barImg = document.getElementById("barChart").toDataURL("image/png");
+        const pieImg = document.getElementById("pieChart").toDataURL("image/png");
+        const suppImg = document.getElementById("suppChart").toDataURL("image/png");
+    
+        pdf.addImage(barImg, "PNG", 10, 30, 100, 60);
+        pdf.addImage(pieImg, "PNG", 115, 30, 70, 60);
+        pdf.addImage(suppImg, "PNG", 190, 30, 100, 60);
+    
+        pdf.addPage();
+    
+        const tableData = prepareData(semestre).map(p => [
+          p.row.Nom, p.row.Email, p.row.Département, p.row.Grade,
+          p.row["Choix / Module"], p.row.Cours, p.row.TD, p.row.TP,
+          p.row["Heures Suppl."], p.row["PFE Licence"], p.row["PFE Master"], p.row.Statut
+        ]);
+    
+        pdf.autoTable({
+          head: [["Nom", "Email", "Département", "Grade", "Choix / Module", "Cours", "TD", "TP", "Heures Suppl.", "PFE L", "PFE M", "Statut"]],
+          body: tableData,
+          startY: 20,
+          styles: { fontSize: 9 },
+          theme: "grid"
+        });
+    
+        pdf.save(`Semestre${semestre}_Professeurs.pdf`);
+      }, 500);
+    }
+    
+    const container = document.getElementById("professorButtons");
+    professors.forEach(p => {
+      const btn = document.createElement("button");
+      btn.textContent = p.name;
+      btn.className = "login_button";
+      btn.onclick = () => {
+        window.location.href = `professor.html?id=${p.id}`;
+      };
+      container.appendChild(btn);
+    });
+    </script>
+    
 </body>
 </html>

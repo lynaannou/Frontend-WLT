@@ -87,6 +87,37 @@ h5 {
     margin-top: 30px;
 }
 
+/* === BUTTON AREA FOR STATS === */
+.buttons-area {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 20px;
+}
+
+.buttons-area button {
+    background: #5FA9DD;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    font-size: 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.buttons-area button:hover {
+    background: #4095cd;
+    transform: scale(1.05);
+}
+.Statistiques {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+
 /* === ANIMATED BACKGROUND === */
 @keyframes backgroundShift {
     0% {

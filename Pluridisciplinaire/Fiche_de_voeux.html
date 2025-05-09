@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <title>WLT USTHB: Fiche de Vœux</title>
@@ -8,195 +8,225 @@
 </head>
 <body>
 
-  <!-- User Info -->
+  <!-- USER INFO -->
   <div class="user">
     <img class="user_img" src="Assets/contacts-512.png" />
     <div class="user_info">
-      <h3 id="displayUsername">UserName</h3>
-      <h4 id="displayEmail">Email@gmail.com</h4>
+      <h3 id="displayUsername">Professeur</h3>
+      <h4><span id="displayEmail">—</span></h4>
     </div>
   </div>
 
-  <!-- STEP 1 -->
-  <div id="choix_1" class="choix">
-    <h2 class="head">Choix de l'enseignement du Semestre 1</h2>
+  <!-- SEMESTRE 1 -->
+  <div id="semestre1" class="choix">
+    <h2 class="head">Choix du Semestre 1</h2>
     <table class="table">
       <thead>
         <tr>
-          <th></th>
-          <th>Niveaux</th>
-          <th>Spécialité</th>
-          <th>Module</th>
-          <th>Cours</th>
-          <th>TD</th>
-          <th>TP</th>
+          <th>Choix</th><th>Niveau</th><th>Spécialité</th><th>Module</th><th>Cours</th><th>TD</th><th>TP</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td><span class="required">*</span>Choix 1</td>
-          <td><select><option>--</option></select></td>
-          <td><select><option>--</option></select></td>
-          <td><select><option>--</option></select></td>
-          <td><input type="checkbox" /></td>
-          <td><input type="checkbox" /></td>
-          <td><input type="checkbox" /></td>
-        </tr>
-        <tr>
-          <td><span class="required">*</span>Choix 2</td>
-          <td><select><option>--</option></select></td>
-          <td><select><option>--</option></select></td>
-          <td><select><option>--</option></select></td>
-          <td><input type="checkbox" /></td>
-          <td><input type="checkbox" /></td>
-          <td><input type="checkbox" /></td>
-        </tr>
-        <tr>
-          <td><span class="required">*</span>Choix 3</td>
-          <td><select><option>--</option></select></td>
-          <td><select><option>--</option></select></td>
-          <td><select><option>--</option></select></td>
-          <td><input type="checkbox" /></td>
-          <td><input type="checkbox" /></td>
-          <td><input type="checkbox" /></td>
-        </tr>
-      </tbody>
+      <tbody id="sem1Rows"></tbody>
     </table>
-    <h2 class="warning obl">Il est obligatoire de remplir tous les choix</h2>
+    <div class="warning" id="sem1Hours">Total S1: 0h (Max: 12h)</div>
   </div>
 
-  <!-- STEP 2 -->
-  <div id="choix_2" class="choix hidden">
-    <h2 class="head">Choix de l'enseignement du Semestre 2</h2>
+  <!-- SEMESTRE 2 -->
+  <div id="semestre2" class="choix hidden">
+    <h2 class="head">Choix du Semestre 2</h2>
     <table class="table">
       <thead>
         <tr>
-          <th></th>
-          <th>Niveaux</th>
-          <th>Spécialité</th>
-          <th>Module</th>
-          <th>Cours</th>
-          <th>TD</th>
-          <th>TP</th>
+          <th>Choix</th><th>Niveau</th><th>Spécialité</th><th>Module</th><th>Cours</th><th>TD</th><th>TP</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td><span class="required">*</span>Choix 1</td>
-          <td><select><option>--</option></select></td>
-          <td><select><option>--</option></select></td>
-          <td><select><option>--</option></select></td>
-          <td><input type="checkbox" /></td>
-          <td><input type="checkbox" /></td>
-          <td><input type="checkbox" /></td>
-        </tr>
-        <tr>
-          <td><span class="required">*</span>Choix 2</td>
-          <td><select><option>--</option></select></td>
-          <td><select><option>--</option></select></td>
-          <td><select><option>--</option></select></td>
-          <td><input type="checkbox" /></td>
-          <td><input type="checkbox" /></td>
-          <td><input type="checkbox" /></td>
-        </tr>
-        <tr>
-          <td><span class="required">*</span>Choix 3</td>
-          <td><select><option>--</option></select></td>
-          <td><select><option>--</option></select></td>
-          <td><select><option>--</option></select></td>
-          <td><input type="checkbox" /></td>
-          <td><input type="checkbox" /></td>
-          <td><input type="checkbox" /></td>
-        </tr>
-      </tbody>
+      <tbody id="sem2Rows"></tbody>
     </table>
-    <h2 class="warning obl">Il est obligatoire de remplir tous les choix</h2>
+    <div class="warning" id="sem2Hours">Total S2: 0h (Max: 12h)</div>
   </div>
 
-  <!-- STEP 3 -->
-  <div id="extra_questions" class="choix hidden">
+  <!-- QUESTIONS SUPPLÉMENTAIRES -->
+  <div id="questions" class="choix hidden">
     <h2 class="head">Questions Supplémentaires</h2>
     <div class="questions-grid">
-
       <div class="question-card">
-        <div class="question-label">Voulez-vous assurer des enseignements en heures supplémentaires pour le S1 ?</div>
-        <div class="question-inputs">
-          <label><input type="radio" name="extraHours" /> Oui</label>
-          <label><input type="radio" name="extraHours" /> Non</label>
-        </div>
+        <div class="question-label">Souhaitez-vous faire des heures supplémentaires en S1 ?</div>
+        <input type="number" id="extra1" class="number-field" value="0" min="0" max="6" />
       </div>
 
       <div class="question-card">
-        <div class="question-label">Si oui, précisez le nombre d’heures supplémentaires</div>
-        <input type="number" class="number-field" placeholder="0" />
+        <div class="question-label">Souhaitez-vous faire des heures supplémentaires en S2 ?</div>
+        <input type="number" id="extra2" class="number-field" value="0" min="0" max="6" />
       </div>
 
       <div class="question-card">
-        <div class="question-label">Nombre de PFE Licence prévus pour cette année</div>
-        <input type="number" class="number-field" placeholder="0" />
+        <div class="question-label">Nombre de PFE Licence :</div>
+        <input type="number" id="pfeL" class="number-field" value="0" />
       </div>
 
       <div class="question-card">
-        <div class="question-label">Nombre de PFE Master prévus pour cette année</div>
-        <input type="number" class="number-field" placeholder="0" />
+        <div class="question-label">Nombre de PFE Master :</div>
+        <input type="number" id="pfeM" class="number-field" value="0" />
       </div>
-
     </div>
-  </div>
+  
+    <div class="question-card">
+      <div class="question-label">Quel est votre grade ?</div>
+      <select id="grade" class="text-field" required>
+        <option disabled selected>-- Choisir --</option>
+        <option>Professeur</option>
+        <option>Maître de Conférences</option>
+        <option>Maître Assistant</option>
+        <option>Doctorant</option>
+      </select>
+    </div>
+    
+    
+<div class="question-card">
+  <div class="question-label">Quel est votre numéro de bureau ? </div>
+  <input type="text" id="numBureau" class="text-field" value="" />
+</div>
 
-  <!-- Navigation -->
+
+<div class="question-card">
+  <div class="question-label">Quel est votre email préféré ? </div>
+  <input type="text" id="emailPref" class="text-field" value="" />
+</div>
+</div>
+
+
+
+  <!-- NAVIGATION -->
   <div class="navigate">
-    <div class="previous">
-      <button id="previous" class="navigate_button"><h3><-- Précédent</h3></button>
-    </div>
-    <div class="next">
-      <button id="next" class="navigate_button"><h3>Suivant --></h3></button>
-      <button id="doneBtn" class="navigate_button hidden"><h3>✅ Terminer</h3></button>
+    <button id="prev" class="navigate_button hidden"><-- Précédent</button>
+    <div>
+      <button id="next" class="navigate_button">Suivant --></button>
+      <button id="submitBtn" class="navigate_button hidden">✅ Terminer</button>
     </div>
   </div>
 
+  <!-- SCRIPT -->
   <script>
-    const choix1 = document.getElementById("choix_1");
-    const choix2 = document.getElementById("choix_2");
-    const extraQuestions = document.getElementById("extra_questions");
-    const previousBtn = document.getElementById("previous");
-    const nextBtn = document.getElementById("next");
-    const doneBtn = document.getElementById("doneBtn");
+    const name = localStorage.getItem("username") || "Professeur";
+    const email = localStorage.getItem("email") || "—";
+    const grade = localStorage.getItem("grade");
+    const departement = localStorage.getItem("departement");
 
-    let step = 1;
+    document.getElementById("displayUsername").textContent = name;
+    document.getElementById("displayEmail").textContent = email;
 
-    function showStep(step) {
-      choix1.classList.add("hidden");
-      choix2.classList.add("hidden");
-      extraQuestions.classList.add("hidden");
+    const niveaux = ["L1", "L2", "L3", "M1", "M2"];
+    const specialites = {
+      ia: ["IA", "Data Science", "Robotique"],
+      gl: ["GL", "DevOps", "Cloud"]
+    };
+    const modules = {
+      ia: ["Deep Learning", "Réseaux de Neurones", "Vision Artificielle"],
+      gl: ["Architecture Logicielle", "UML", "Développement Web"]
+    };
 
-      if (step === 1) choix1.classList.remove("hidden");
-      if (step === 2) choix2.classList.remove("hidden");
-      if (step === 3) extraQuestions.classList.remove("hidden");
+    const sem1Rows = document.getElementById("sem1Rows");
+    const sem2Rows = document.getElementById("sem2Rows");
 
-      previousBtn.style.display = step > 1 ? "block" : "none";
-      nextBtn.style.display = step < 3 ? "block" : "none";
-      doneBtn.classList.toggle("hidden", step !== 3);
+    function generateRows(container, semTag) {
+      for (let i = 1; i <= 3; i++) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>Choix ${i}</td>
+          <td><select>${niveaux.map(n => `<option>${n}</option>`).join("")}</select></td>
+          <td><select class="spec"><option>--</option></select></td>
+          <td><select class="mod"><option>--</option></select></td>
+          <td><input type="checkbox" class="${semTag}-cours" /></td>
+          <td><input type="checkbox" class="${semTag}-td" /></td>
+          <td><input type="checkbox" class="${semTag}-tp" /></td>
+        `;
+        container.appendChild(tr);
+      }
     }
 
-    showStep(step);
+    generateRows(sem1Rows, "s1");
+    generateRows(sem2Rows, "s2");
 
-    nextBtn.addEventListener("click", () => {
-      if (step < 3) {
-        step++;
-        showStep(step);
+    const prev = document.getElementById("prev");
+    const next = document.getElementById("next");
+    const submitBtn = document.getElementById("submitBtn");
+    let step = 1;
+
+    next.addEventListener("click", () => {
+      if (step === 1) {
+        document.getElementById("semestre1").classList.add("hidden");
+        document.getElementById("semestre2").classList.remove("hidden");
+      } else if (step === 2) {
+        document.getElementById("semestre2").classList.add("hidden");
+        document.getElementById("questions").classList.remove("hidden");
+        next.classList.add("hidden");
+        submitBtn.classList.remove("hidden");
       }
+      step++;
+      prev.classList.remove("hidden");
     });
 
-    previousBtn.addEventListener("click", () => {
-      if (step > 1) {
-        step--;
-        showStep(step);
+    prev.addEventListener("click", () => {
+      if (step === 2) {
+        document.getElementById("semestre1").classList.remove("hidden");
+        document.getElementById("semestre2").classList.add("hidden");
+        prev.classList.add("hidden");
+      } else if (step === 3) {
+        document.getElementById("semestre2").classList.remove("hidden");
+        document.getElementById("questions").classList.add("hidden");
+        next.classList.remove("hidden");
+        submitBtn.classList.add("hidden");
       }
+      step--;
     });
 
-    doneBtn.addEventListener("click", () => {
-      localStorage.setItem("ficheCompleted", true);
+    // Filter module/specialité based on department
+    function filterOptions() {
+      const val = departement;
+      if (!val) return;
+      document.querySelectorAll(".spec").forEach(select => {
+        select.innerHTML = specialites[val].map(s => `<option>${s}</option>`).join("");
+      });
+      document.querySelectorAll(".mod").forEach(select => {
+        select.innerHTML = modules[val].map(s => `<option>${s}</option>`).join("");
+      });
+    }
+
+    filterOptions();
+
+    const sem1Warning = document.getElementById("sem1Hours");
+    const sem2Warning = document.getElementById("sem2Hours");
+
+    function calculateAndRestrictHours() {
+      const calc = prefix => {
+        const cours = [...document.querySelectorAll(`.${prefix}-cours`)].filter(c => c.checked).length * 3;
+        const td = [...document.querySelectorAll(`.${prefix}-td`)].filter(c => c.checked).length * 1.5;
+        const tp = [...document.querySelectorAll(`.${prefix}-tp`)].filter(c => c.checked).length * 1.5;
+        return cours + td + tp;
+      };
+
+      const s1 = calc("s1");
+      const s2 = calc("s2");
+
+      let s2Max = 12;
+      if (s1 > 12) s2Max = Math.max(0, 24 - s1);
+
+      sem1Warning.textContent = `Total S1: ${s1}h (Max: 12h${s1 > 12 ? " [heures supp]" : ""})`;
+      sem2Warning.textContent = `Total S2: ${s2}h (Max: ${s2Max}h${s1 > 12 ? " ⚠ réduit car S1 dépasse" : ""})`;
+
+      document.querySelectorAll(".s2-cours, .s2-td, .s2-tp").forEach(input => {
+        if (!input.checked) {
+          input.disabled = s2 >= s2Max;
+        }
+      });
+    }
+
+    document.querySelectorAll("input[type='checkbox']").forEach(cb => {
+      cb.addEventListener("change", calculateAndRestrictHours);
+    });
+
+    document.getElementById("submitBtn").addEventListener("click", () => {
+      alert("Fiche soumise !");
       window.location.href = "confirmation.html";
     });
   </script>

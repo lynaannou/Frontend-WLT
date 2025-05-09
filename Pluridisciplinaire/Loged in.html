@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>WLT USTHB: Loged in</title>
-    <link rel="stylesheet" href="Styles/css.css">
-    <link rel="stylesheet" href="Styles/loged%20in.css">
-    <link rel="icon" href="Assets/Logo,_USTHB.png">
+  <meta charset="UTF-8" />
+  <title>WLT USTHB: Loged in</title>
+  <link rel="stylesheet" href="Styles/css.css" />
+  <link rel="stylesheet" href="Styles/loged in.css" />
+  <style>
+    #statLink { display: none; }
+    #deadlineCountdown {
+      text-align: center;
+      margin: 20px 0;
+      font-weight: bold;
+      color: #b10000;
+    }
+  </style>
 </head>
 <body>
+
+  <!-- 🕒 Deadline Countdown Display -->
+  <div id="deadlineCountdown" class="warning"></div>
+
   <div class="user">
-    <img class="user_img" src="Assets/contacts-512.png">
+    <img class="user_img" src="Assets/contacts-512.png" />
     <div class="user_info">
       <h3 id="displayUsername">UserName</h3>
       <h4 id="displayEmail">Email@gmail.com</h4>
@@ -17,50 +29,68 @@
   </div>
 
   <div class="centre">
-    <!-- Fiche de Voeux -->
     <div class="FicheDeVoeux">
       <a href="Fiche_de_voeux.html">
-        <img class="logo" src="Assets/list-ingredients-512.png" alt="Fiche de Voeux">
+        <img class="logo" src="Assets/list-ingredients-512.png" alt="Fiche de Voeux" />
       </a>
       <h4>Fiche de Voeux</h4>
     </div>
 
-    <!-- Négociations -->
     <div class="Négociation">
       <a href="Negociation.html">
-        <img class="logo" src="Assets/speech-bubble-5-512.png" alt="Négociation">
+        <img class="logo" src="Assets/speech-bubble-5-512.png" alt="Négociation" />
       </a>
       <h4>Négociations</h4>
     </div>
 
-    <!-- Statistiques (admin only) -->
     <div class="Statistiques" id="statLink">
-      <a href="stats.html">
-        <img class="logo" src="Assets/bar-graph.png" alt="Statistiques">
+      <a href="statistiques_wlt_usthb_complete.html">
+        <img class="logo" src="Assets/bar-graph.png" alt="Statistiques" />
       </a>
       <h4>Statistiques</h4>
     </div>
   </div>
-
   <h5>CHOISI UNE OPTION</h5>
 
-  <script src="JS_Files/index.js"></script>
-  <script src="JS_Files/Logedin.js"></script>
   <script>
-    // Simulate admin role check
-    const isAdmin = true; // Set to false for professors
-
-    if (!isAdmin) {
-      document.getElementById("statLink").style.display = "none";
-    }
-
-    // Display user data from localStorage
     document.addEventListener("DOMContentLoaded", () => {
       const username = localStorage.getItem("username");
       const email = localStorage.getItem("email");
 
-      if (username) document.getElementById("displayUsername").textContent = username;
-      if (email) document.getElementById("displayEmail").textContent = email;
+      document.getElementById("displayUsername").textContent = username || "No Username";
+      document.getElementById("displayEmail").textContent = email || "No Email";
+
+      if (email && email.toLowerCase().trim() === "admin@email.com") {
+        document.getElementById("statLink").style.display = "flex";
+      }
+
+      // 🕒 Deadline Countdown Logic
+      const deadlineStr = localStorage.getItem("deadline");
+      const countdownDiv = document.getElementById("deadlineCountdown");
+
+      function updateCountdown() {
+        if (!deadlineStr) {
+          countdownDiv.textContent = "⏰ Aucune date limite définie.";
+          return;
+        }
+
+        const deadline = new Date(deadlineStr);
+        const now = new Date();
+        const diff = deadline - now;
+
+        if (diff <= 0) {
+          countdownDiv.textContent = "⛔ La période de soumission est terminée.";
+        } else {
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+          const minutes = Math.floor((diff / (1000 * 60)) % 60);
+          const seconds = Math.floor((diff / 1000) % 60);
+          countdownDiv.textContent = `⏳ Temps restant pour modifier la fiche : ${days}j ${hours}h ${minutes}m ${seconds}s`;
+        }
+      }
+
+      setInterval(updateCountdown, 1000);
+      updateCountdown(); // Run once immediately
     });
   </script>
 </body>

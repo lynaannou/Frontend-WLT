@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>WLT USTHB: Home</title>
+  <link rel="stylesheet" href="Styles/css.css" />
+</head>
+<body>
+  <h1>Login</h1>
+  <form id="loginForm">
+    <input type="email" id="emailInput" placeholder="Email" required /><br />
+    <input type="password" id="passwordInput" placeholder="Password" required /><br />
+    <button type="submit">Login</button>
+  </form>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const email = document.getElementById("emailInput").value;
+      localStorage.setItem("email", email);
+      localStorage.setItem("username", email); // optional
+      window.location.href = "Loged%20in.html";
+    });
+  </script>
+</body>
+</html>
