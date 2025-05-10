@@ -7,32 +7,41 @@ document.addEventListener("DOMContentLoaded", () => {
   const passwordInput = document.querySelector(".Password");
 
   if (loginButton && usernameInput && passwordInput) {
-    loginButton.addEventListener("click", (e) => {
-      e.preventDefault();
+   loginButton.addEventListener("click", (e) => {
+  e.preventDefault();
 
-      const username = usernameInput.value;
-      const password = passwordInput.value;
+  const username = usernameInput.value;
+  const password = passwordInput.value;
 
-      fetch("http://localhost:8080/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email: username, password: password })
-      })
-        .then(res => {
-          if (!res.ok) throw new Error("Login failed");
-          return res.json();
-        })
-        .then(data => {
-          alert("Login successful!");
-          localStorage.setItem("token", data.token); // optional
-          window.location.href = "../Pluridisciplinaire/index.html";
-        })
-        .catch(err => {
-          alert("Login error: " + err.message);
-        });
+  console.log("Sending login request...");
+
+  fetch("http://localhost:8080/api/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email: username, password: password })
+  })
+    .then(res => {
+      console.log("Response received:", res);
+      if (!res.ok) throw new Error("Login failed with status " + res.status);
+      return res.json();
+    })
+ .then(data => {
+  console.log("Login success:", data);
+  alert("Login successful!");
+  localStorage.setItem("token", data.token); // Save token
+  localStorage.setItem("username", data.username); // Save name
+  localStorage.setItem("email", data.email); // Save email
+  window.location.href = "../Pluridisciplinaire/Loged in.html";
+})
+
+
+    .catch(err => {
+      console.error("Login error:", err);
+      alert("Login error: " + err.message);
     });
+});
   }
 
   // PANEL TOGGLES

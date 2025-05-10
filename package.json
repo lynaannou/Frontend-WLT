@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/amine2089/Frontend-WLT#readme",
   "dependencies": {
+    "axios": "^1.9.0",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "express": "^5.1.0"

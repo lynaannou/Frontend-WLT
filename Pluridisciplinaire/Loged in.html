@@ -16,7 +16,7 @@
   </style>
 </head>
 <body>
-
+  
   <!-- 🕒 Deadline Countdown Display -->
   <div id="deadlineCountdown" class="warning"></div>
 
@@ -54,9 +54,12 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      
       const username = localStorage.getItem("username");
       const email = localStorage.getItem("email");
-
+      console.log("Loaded from login:");
+console.log("Username:", username);
+console.log("Email:", email);
       document.getElementById("displayUsername").textContent = username || "No Username";
       document.getElementById("displayEmail").textContent = email || "No Email";
 

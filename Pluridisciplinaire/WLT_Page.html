@@ -163,5 +163,32 @@
     });
   </script>
   <script src="index.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script type="module">
+  import { login } from "./JS_Files/api.js";
+
+  document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("emailInput").value;
+    const password = document.getElementById("passwordInput").value;
+
+    try {
+      const res = await login({ email, password });
+
+      alert("Connexion réussie !");
+      localStorage.setItem("email", email);
+      localStorage.setItem("username", email.split("@")[0]); // ou autre info récupérée
+      window.location.href = "Loged%20in.html";
+    } catch (err) {
+      alert("Email ou mot de passe invalide !");
+      console.error(err);
+    }
+  });
+</script>
+
 </body>
 </html>
